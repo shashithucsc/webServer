@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shashith's Web Server</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .media-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 80%;
+        }
+
+        .media-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .media-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .media-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background 0.2s;
+        }
+
+        .download-btn:hover {
+            background: #2980b9;
+        }
+
+        .video-preview {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        #notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .media-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Shashith Rashmika Media</h1>
+            <p>Access all your media files in one place</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Videos Section -->
+        <section class="media-section">
+            <h2 class="section-title">Videos</h2>
+            <div class="media-grid">
+                <div class="media-item">
+                    <video class="video-preview" controls>
+                        <source src="media/video.mp4" type="video/mp4">
+                    </video>
+                    <h3>Test Video 1</h3>
+                    <p>Web server video test</p>
+                    <a href="media/video.mp4" download class="download-btn" onclick="showNotification('video')">Download MP4</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- PDFs Section -->
+        <section class="media-section">
+            <h2 class="section-title">Documents</h2>
+            <div class="media-grid">
+                <div class="media-item">
+                    <img class="media-icon" src="media/pdf.png" alt="PDF icon">
+                    <h3>Test PDF 1</h3>
+                    <p>Web server PDF test</p>
+                    <a href="media/doc.pdf" download class="download-btn" onclick="showNotification('pdf')">Download PDF</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audio Section -->
+        <section class="media-section">
+            <h2 class="section-title">Audio Files</h2>
+            <div class="media-grid">
+            <div class="media-item">
+                <img class="media-icon" src="media/audio.png" alt="Audio icon">
+                <h3>Test Audio 1</h3>
+                <audio controls style="width: 100%; margin: 1rem 0;">
+                <source src="media/audio.mp3" type="audio/mpeg">
+                </audio>
+                <a href="media/audio.mp3" download class="download-btn" onclick="showNotification('audio')">Download MP3</a>
+            </div>
+            </div>
+        </section>
+
+        <!-- Images Section -->
+        <section class="media-section">
+            <h2 class="section-title">Images</h2>
+            <div class="media-grid">
+                <div class="media-item">
+                    <img src="media/image.png" alt="Sample Image" style="width: 100%; border-radius: 5px;">
+                    <h3>Test Image 1</h3>
+                    <p>Web server video test image</p>
+                    <a href="media/image.png" download class="download-btn" onclick="showNotification('image')">Download Image</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="notification">Download started!...</div>
+
+    <script>
+        function showNotification(type) {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            notification.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} download started!`;
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
