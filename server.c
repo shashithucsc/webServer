@@ -57,12 +57,21 @@ void *handle_client(void *arg) {
     free(arg);
 
     char buffer[1024];
-    recv(client_socket, buffer, sizeof(buffer) - 1, 0);
+    int received = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
+    if (received <= 0) {
+        closesocket(client_socket);
+        return NULL;
+    }
+    
+    buffer[received] = '\0';  // Null-terminate the request string
 
     char file_name[256] = "src/index.html";  
     char method[16], requested_path[256];
 
     sscanf(buffer, "%s %s", method, requested_path);
+
+    // ** Print request details to the terminal **
+    printf("Received request: %s %s\n", method, requested_path);
 
     if (strcmp(requested_path, "/") != 0) {
         snprintf(file_name, sizeof(file_name), "src%s", requested_path);
